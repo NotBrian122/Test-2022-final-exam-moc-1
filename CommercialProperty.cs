@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Test_papers_1
+{
+      internal class CommercialProperty : Propertiy 
+     {
+        public char _ratesBand;
+        public char RatesBand 
+        { 
+            get { return _ratesBand; }
+            set {_ratesBand = value;}
+        }
+        public CommercialProperty(string EirCode, double RenT, int BedSpaces, char RateBand): base(EirCode, RenT, BedSpaces)
+        {
+            Eircode = EirCode;
+            Rent = RenT;
+            NumberBedSpace = BedSpaces;
+            RatesBand = RateBand;
+        }
+        public bool EligibleForGrandt()
+        {
+            if (RatesBand != 'A' && RatesBand != 'B' && RatesBand !='C')
+            {
+                return false;
+            }
+            else if (RatesBand == 'A' && Rent <= 1000)
+            {
+                return true;
+            }
+            else 
+            {
+                throw new ArgumentException("A, B or C, are only accectped as a base grant");
+            }
+        }
+        public override string ToString()
+        {
+            return string.Format($".{Numb,-10} {Eircode,-10} {Rent,-10} {EligibleForGrandt(),-10} {NumberBedSpace,-10} {GetSpacePerBed(),-10:n2} {RatesBand,-10}");
+        }
+      }
+}
