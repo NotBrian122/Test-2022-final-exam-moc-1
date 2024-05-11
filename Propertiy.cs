@@ -14,6 +14,7 @@ namespace Test_papers_1
         private string _eircode;
         private double _rent;
         private int _bedspaces;
+        static char rate;
         public int Numb
         {
             get { return _numb; }
@@ -73,13 +74,35 @@ namespace Test_papers_1
         {
             if (Rent > 1000)
             {
+                rate = ' ';
                 return false;
             }
             else if (Rent <= 1000)
             {
-                return true;
 
-            }else { return false; }
+                if (Rent <= 800 && Rent >= 200)
+                {
+                    rate = 'A';
+
+                }
+                else if (Rent >= 200 && Rent <= 600)
+                {
+                    rate = 'B';
+                }
+                else if (Rent <= 1000 && Rent >= 800)
+                {
+                    rate = 'C';
+                }
+                else
+                { rate = ' '; }
+
+                return true;
+            }
+            else 
+            {
+                rate = ' ';
+                return false; 
+            }
         }
         public double GetSpacePerBed()
         {
@@ -89,7 +112,7 @@ namespace Test_papers_1
         }
         public override string ToString()
         {
-            return string.Format($".{Numb,-10} {Eircode,-10} {Rent,-10} {EligibleForGrandt(),-10} {NumberBedSpace,-10} {GetSpacePerBed(),-10:n2}");
+            return string.Format($".{Numb,-10} {Eircode,-10} {Rent,-10} {EligibleForGrandt(),-10} {NumberBedSpace,-10} {GetSpacePerBed(),-10:c2} {rate,10}");
         }
     }
 }

@@ -12,39 +12,49 @@
             Propertiy prop = new Propertiy("d913k5", 1400, 3);
             Console.WriteLine(prop.ToString());
 
-            CommercialProperty prop2 = new CommercialProperty("d913k5", 1000, 2,'A');
+            CommercialProperty prop2 = new CommercialProperty("d913k5", 1000, 2, "A");
             Console.WriteLine(prop2.ToString());
             //Question2
 
             string Path = "../../../baseText.txt";
 
-            using StreamReader sr = new StreamReader(Path);
-            string[] List =sr.ReadToEnd().Split(',', '\r', '\n');
             try
             {
 
-                for (int i = 0; i < List.Length; i += 4)
+                using (StreamReader sr = File.OpenText(Path))
                 {
-                    if (List[0 + i].Length == 6 && int.TryParse(List[1 + i], out int rent) && int.TryParse(List[2 + i], out int bedSpace))
-                    {
-                        Propertiy propApp = new Propertiy(List[0 + i], rent, bedSpace);
-                        Console.WriteLine(propApp.ToString());
+                    string input;
 
-                    }
-                    else if (List[0 + i].Length == 6 && int.TryParse(List[1 + i], out rent) && int.TryParse(List[2 + i], out bedSpace) && bedSpace == null && char.TryParse(List[3 + i], out char rating ))
+                    while ((input = sr.ReadLine()) != null)
                     {
-                        CommercialProperty compProp = new CommercialProperty(List[0 + i], rent, bedSpace, rating);
-                        Console.WriteLine(compProp.ToString());
-                    }
-                    else
-                    {
-                        throw new ArgumentException("This shit aint working");
+                        string[] feild = input.Split(',');
+                        double rent; int bedSpaces;
+
+                        if (feild.Length == 3 && double.TryParse(feild[1], out rent) && int.TryParse(feild[2], out bedSpaces) && bedSpaces > 0)
+                        {
+                            Propertiy[] prop3 = new Propertiy[4];
+                            prop = new Propertiy(feild[0], rent, bedSpaces);
+                            Console.WriteLine(prop.ToString());
+
+                        }
+                        else if (feild.Length == 4 && double.TryParse(feild[1], out rent) && (int.TryParse(feild[2], out bedSpaces)) && bedSpaces > 0)
+                        {
+                            CommercialProperty[] prop4 = new CommercialProperty[4];
+                            prop4[0] = new CommercialProperty(feild[0], rent, bedSpaces, feild[3]);
+
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Error in input" + input);
+                        }
+
                     }
                 }
             }catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine("Error input" + ex );
             }
+            
         }
     }
 }

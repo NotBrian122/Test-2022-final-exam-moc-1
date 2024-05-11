@@ -8,13 +8,13 @@ namespace Test_papers_1
 {
       internal class CommercialProperty : Propertiy 
      {
-        public char _ratesBand;
-        public char RatesBand 
+        public string _ratesBand;
+        public string RatesBand 
         { 
             get { return _ratesBand; }
             set {_ratesBand = value;}
         }
-        public CommercialProperty(string EirCode, double RenT, int BedSpaces, char RateBand): base(EirCode, RenT, BedSpaces)
+        public CommercialProperty(string EirCode, double RenT, int BedSpaces, string RateBand): base(EirCode, RenT, BedSpaces)
         {
             Eircode = EirCode;
             Rent = RenT;
@@ -23,11 +23,11 @@ namespace Test_papers_1
         }
         public bool EligibleForGrandt()
         {
-            if (RatesBand != 'A' && RatesBand != 'B' && RatesBand !='C')
+            if (RatesBand != "A" && RatesBand != "B" && RatesBand !="C")
             {
                 return false;
             }
-            else if (RatesBand == 'A' && Rent <= 1000)
+            else if (RatesBand == "A" && Rent <= 1000)
             {
                 return true;
             }
@@ -38,7 +38,7 @@ namespace Test_papers_1
         }
         public override string ToString()
         {
-            return string.Format($".{Numb,-10} {Eircode,-10} {Rent,-10} {EligibleForGrandt(),-10} {NumberBedSpace,-10} {GetSpacePerBed(),-10:n2} {RatesBand,-10}");
+            return string.Format($".{Numb,-10} {Eircode,-10} {Rent,-10} {EligibleForGrandt(),-10} {NumberBedSpace,-10} {GetSpacePerBed(),-10:c2} {RatesBand,-10}");
         }
       }
 }
